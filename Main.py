@@ -2,8 +2,8 @@ import discord, string, random, praw
 
 client = discord.Client()
 
-r = praw.Reddit("PornPoster V1.0 by /u/Yalnix")
-r.login("Pull_Bot", "Harambe11", disable_warning = True)
+r = praw.Reddit("REDACTED")#Redacted will work but please name  it something more suitable that the Reddit API won't dislike
+r.login("REDACTED", "REDACTED", disable_warning = True)#Where it Redacted please insert your own reddit username and password
 
 @client.event
 async def on_message(message):
@@ -15,9 +15,6 @@ async def on_message(message):
         await client.send_message(message.channel, msg)
     if "right there" in message.content.lower():
         msg = ":ok_hand::ok_hand::ok_hand: right:heavy_check_mark:there :heavy_check_mark::heavy_check_mark:if i do ƽaү so my self :100: i say so :100: thats what im talking about right there right there (chorus: ʳᶦᵍʰᵗ ᵗʰᵉʳᵉ) mMMMMᎷМ:100: :ok_hand::ok_hand: :ok_hand:НO0ОଠOOOOOОଠଠOoooᵒᵒᵒᵒᵒᵒᵒᵒᵒ:ok_hand: :ok_hand::ok_hand: :ok_hand: :100: :ok_hand: :eyes: :eyes: :eyes: :ok_hand::ok_hand:Good shit"
-        await client.send_message(message.channel, msg)
-    if "Hello!" in message.content:
-        msg = ("Fuck you faggot")
         await client.send_message(message.channel, msg)
     if "boi" in message.content.lower():
         msg = "i"*1000
