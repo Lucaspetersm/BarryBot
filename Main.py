@@ -1,9 +1,32 @@
 import discord, string, random, praw
 
+from discord import opus
+
+OPUS_LIBS = ['libopus-0.x86.dll', 'libopus-0.x64.dll', 'libopus-0.dll', 'libopus.so.0', 'libopus.0.dylib']
+
+def load_opus_lib(opus_libs=OPUS_LIBS):
+    if opus.is_loaded():
+        return True
+    for opus_lib in opus_libs:
+        try:
+            opus.load_opus(opus_lib)
+            return
+        except OSError:
+            pass
+    raise RuntimeError('Could not load an opus lib. Tried %s' % (', '.join(opus_libs)))
+    
+load_opus_lib()
+
+if discord.opus.is_loaded():
+  print("Loaded Opus")
+else:
+  print("Opus has not been loaded")
+
 client = discord.Client()
 
-r = praw.Reddit("REDACTED")#Redacted will work but please name  it something more suitable that the Reddit API won't dislike
-r.login("REDACTED", "REDACTED", disable_warning = True)#Where it Redacted please insert your own reddit username and password
+r = praw.Reddit("Pull V1.0 by /u/Yalnix")
+r.login("Pull_Bot", "Harambe11", disable_warning = True)
+
 
 @client.event
 async def on_message(message):
@@ -15,6 +38,9 @@ async def on_message(message):
         await client.send_message(message.channel, msg)
     if "right there" in message.content.lower():
         msg = ":ok_hand::ok_hand::ok_hand: right:heavy_check_mark:there :heavy_check_mark::heavy_check_mark:if i do ƽaү so my self :100: i say so :100: thats what im talking about right there right there (chorus: ʳᶦᵍʰᵗ ᵗʰᵉʳᵉ) mMMMMᎷМ:100: :ok_hand::ok_hand: :ok_hand:НO0ОଠOOOOOОଠଠOoooᵒᵒᵒᵒᵒᵒᵒᵒᵒ:ok_hand: :ok_hand::ok_hand: :ok_hand: :100: :ok_hand: :eyes: :eyes: :eyes: :ok_hand::ok_hand:Good shit"
+        await client.send_message(message.channel, msg)
+    if "Hello!" in message.content:
+        msg = ("Fuck you faggot")
         await client.send_message(message.channel, msg)
     if "boi" in message.content.lower():
         msg = "i"*1000
@@ -61,7 +87,12 @@ async def on_message(message):
         url = url2.url
         await client.send_message(message.channel, "WHATS UP GUYS IT'S KILLLLLLLEEEEEEEEEERRRRRRRRR KEEEEEEEEEMMMMMMMMSSSSSSTTTTTAAARRRRRRRR" + url)
         await client.send_message(message.channel, "LEEEETTTTSSS GEEEEETTTT RIIIIGHT INTOOOOO THE NEEEWWWSSSS")
-        
+    
+    if message.content.startswith("!Voice"):
+      channel = client.get_channel("255124792909234176")
+      await client.join_voice_channel(channel)
+      msg = client.is_voice_connected(channel)
+      await client.send_message(message.channel, msg)
                 
 @client.event
 async def on_ready():
