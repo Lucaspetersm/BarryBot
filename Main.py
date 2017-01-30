@@ -1,4 +1,4 @@
-import discord, string, random, praw
+import discord, string, random, praw, time, youtube_dl
 
 from discord import opus
 
@@ -25,7 +25,7 @@ else:
 client = discord.Client()
 
 r = praw.Reddit("Pull V1.0 by /u/Yalnix")
-r.login("Username" "Password", disable_warning = True)
+r.login("", "", disable_warning = True)
 
 
 @client.event
@@ -87,18 +87,45 @@ async def on_message(message):
         url = url2.url
         await client.send_message(message.channel, "WHATS UP GUYS IT'S KILLLLLLLEEEEEEEEEERRRRRRRRR KEEEEEEEEEMMMMMMMMSSSSSSTTTTTAAARRRRRRRR" + url)
         await client.send_message(message.channel, "LEEEETTTTSSS GEEEEETTTT RIIIIGHT INTOOOOO THE NEEEWWWSSSS")
-    
+ 
     if message.content.startswith("!Voice"):
-      channel = client.get_channel("255124792909234176")
-      await client.join_voice_channel(channel)
-      msg = client.is_voice_connected(channel)
-      await client.send_message(message.channel, msg)
-                
+        global voice
+        channel = client.get_channel("255124792909234176")
+        voice = await client.join_voice_channel(channel)
+          
+    if message.content.startswith("!Stop"):
+        player.stop()
+      
+    if message.content.startswith("!Disconnect"):
+        await voice.disconnect()
+        print("Disconnected")
+      
+    if message.content.startswith("!Request"):
+        global player
+        searchforward = message.content
+        print(searchforward[9:])
+        player = await voice.create_ytdl_player(searchforward[9:])
+        authorname = str(message.author)
+        authorname = authorname[:-5]
+        print(authorname)
+        msg = "{0} requested '{1}'".format(authorname,player.title)
+        await client.send_message(message.channel, msg)
+        player.start()
+        duration = int(player.duration)
+        print(duration)
+        actualduration = duration - 0.1
+        from time import sleep
+        sleep(actualduration)
+                    
+  
 @client.event
 async def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
     print('------')
+    global voice
+    channel = client.get_channel("255124792909234176")
+    voice = await client.join_voice_channel(channel)
 
-client.run("MjQ0NjE5MDExMjQ0MDMyMDAw.CwAXbw.-ACD6cqZYawjzSeDlHJeC4KZmjU")
+client.run("MjQ0NjE5MDExjQ0MDMyMDAw.CwAXbw.-ACD6cqZYawjzSeDlHJeC4KZmjU")
