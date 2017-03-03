@@ -152,5 +152,5 @@ async def on_ready():
    # channel = client.get_channel("255124792909234176")
    # voice = await client.join_voice_channel(channel)
 
-client.run("MjQ0NjE5MDExMjQ0MDMyMDAw.CwAXbw.-ACD6cqZYawjzSeDlHJeC4KZmjU")
+client.run("")
 
