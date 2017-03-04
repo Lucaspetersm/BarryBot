@@ -26,7 +26,7 @@ client = discord.Client()
 general = discord.Client(id="228134125003866113")
 
 r = praw.Reddit("Pull V1.0 by /u/Yalnix")
-r.login("Pull_Bot", "Harambe11", disable_warning = True)
+r.login("", "", disable_warning = True)
 
 
 @client.event
