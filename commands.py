@@ -27,7 +27,9 @@ general_rules = (
 (right_there, "right there"),
 (hello_faggot, "hello!"),
 (boi_spam, "boi"),
-(high_noon, "what(?: (?:time'?s|time is) it|(?:'?s| is) the time)\?")
+(high_noon, "what(?: (?:time'?s|time is) it|(?:'?s| is) the time)\?"),
+(kkk_did_nothing_wrong, '.'),
+(nice_meme, '.', (), ("m3m3z",))
 )
 
 def on_message(discord, reddit, message, channel):
@@ -132,4 +134,13 @@ def boi_spam(discord, reddit, message, channel):
 
 def high_noon(discord, reddit, message, channel):
     response = "It's high noon!"
+    await discord.send_message(channel, response.format(message))
+
+def kkk_did_nothing_wrong(discord, reddit, message, channel):
+    if random.randrange(0, 1000) == 0:
+        response = "The KKK did nothing wrong!"
+        await discord.send_message(channel, response.format(message))
+
+def nice_meme(discord, reddit, message, channel):
+    response = "nice meme"
     await discord.send_message(channel, response.format(message))
