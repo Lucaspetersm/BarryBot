@@ -6,7 +6,7 @@
     Originally authored by Yalnix.
     Contributors: unclepenguin, GarethPW.
     
-    Licensed under GNU General Public License v3.
+    Licensed under Mozilla Public License Version 2.0.
 '''
 
 import platform, random, string, time
