@@ -153,5 +153,6 @@ general_rules = (
 (boi_spam, "boi"),
 (high_noon, "what(?: (?:time'?s|time is) it|(?:'?s| is) the time)\\?"),
 (kkk_did_nothing_wrong, '.'),
-(nice_meme, '.', (), ("m3m3z",))
+(nice_meme, '.', (), ("m3m3z",)),
+(shit_automod, "shit automod")
 )
