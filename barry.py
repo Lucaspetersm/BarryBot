@@ -50,7 +50,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     else:
-        commands.on_message(discord, reddit, message)
+        commands.on_message(client, reddit, message)
 
 # TBI Music Bot Code
 
