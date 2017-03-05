@@ -27,7 +27,7 @@ general_rules = (
 (right_there, "right there"),
 (hello_faggot, "hello!"),
 (boi_spam, "boi"),
-(high_noon, "what(?: (?:time'?s|time is) it|(?:'?s| is) the time)\?"),
+(high_noon, "what(?: (?:time'?s|time is) it|(?:'?s| is) the time)\\?"),
 (kkk_did_nothing_wrong, '.'),
 (nice_meme, '.', (), ("m3m3z",))
 )
