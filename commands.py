@@ -32,7 +32,7 @@ general_rules = (
 (nice_meme, '.', (), ("m3m3z",))
 )
 
-def on_message(discord, reddit, message, channel):
+def on_message(discord, reddit, message):
     def good_channel(rule, channel):
         return (len(rule) < 2 or                           #  no blacklist or whitelist, or
                 ((channel not in rule[2]) and              # (not in blacklist and
