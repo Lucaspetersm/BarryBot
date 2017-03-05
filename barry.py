@@ -1,5 +1,5 @@
 '''
-    Barry Bot 2.0dev3
+    Barry Bot 2.0dev4
     
     A pretty nutty Discord bot.
     
@@ -14,9 +14,9 @@ import discord, praw, youtube_dl
 import commands, config
 from discord import opus
 
-ver = "2.0dev3"
+ver = "2.0dev4"
 
-user_agent = platform.system().lower() + ":pw.yalnix.barrybot:" + ver + " by /u/Yalnix"
+user_agent = platform.system().lower() + ":pw.yalnix.barry:" + ver + " by /u/Yalnix"
 
 OPUS_LIBS = ['libopus-0.x86.dll', 'libopus-0.x64.dll', 'libopus-0.dll', 'libopus.so.0', 'libopus.0.dylib']
 
@@ -47,10 +47,15 @@ reddit.login(config.reddit_user, config.reddit_pass, disable_warning=True)
 
 @client.event
 async def on_message(message):
+    responses = []
+    
     if message.author == client.user:
         return
     else:
-        commands.on_message(client, reddit, message)
+        responses = commands.on_message(client, reddit, message)
+    
+    for msg in responses:
+        await discord.send_message(message.channel, msg.format(message))
 
 # TBI Music Bot Code
 
