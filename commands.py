@@ -24,7 +24,7 @@ def on_message(discord, reddit, message):
     def re_evaluate(exp, body):
         return re.search(exp, body, re.IGNORECASE) is not None
     
-    channel = message.channel
+    channel = message.channel.name
     body = message.content
     
     for rule in command_rules:
@@ -135,10 +135,10 @@ def nice_meme(discord, reddit, responses, message, channel):
 
 command_rules = (
 (get_meme, "^!getmeme"),
-(get_porn, "^!getporn", ("228134125003866113",)),
+(get_porn, "^!getporn", ("general",)),
 (get_keem, "^!getkeem"),
 (get_dick, "^!getdick"),
-(get_furry_porn, "^!getfurryporn", ("228134125003866113",))
+(get_furry_porn, "^!getfurryporn", ("general",))
 )
 
 general_rules = (
@@ -148,5 +148,5 @@ general_rules = (
 (boi_spam, "boi"),
 (high_noon, "what(?: (?:time'?s|time is) it|(?:'?s| is) the time)\\?"),
 (kkk_did_nothing_wrong, '.'),
-(nice_meme, '.', (), ("228134537920643073",))
+(nice_meme, '.', (), ("m3m3z",))
 )
