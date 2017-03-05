@@ -55,7 +55,7 @@ async def on_message(message):
         responses = commands.on_message(client, reddit, message)
     
     for msg in responses:
-        await discord.send_message(message.channel, msg.format(message))
+        await client.send_message(message.channel, msg.format(message))
 
 # TBI Music Bot Code
 
