@@ -16,9 +16,9 @@ def on_message(discord, reddit, message):
     responses = []
     
     def good_channel(rule, channel):
-        return (len(rule) < 2 or                           #  no blacklist or whitelist, or
+        return (len(rule) < 3 or                           #  no blacklist or whitelist, or
                 ((channel not in rule[2]) and              # (not in blacklist and
-                 ((len(rule) < 3) or                       # (no whitelist or
+                 ((len(rule) < 4) or                       # (no whitelist or
                   (not rule[3]) or (channel in rule[3])))) #  in whitelist))
     
     def re_evaluate(exp, body):
