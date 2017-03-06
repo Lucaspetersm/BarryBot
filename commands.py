@@ -121,8 +121,13 @@ def high_noon(discord, reddit, responses, message, channel):
     responses.append(response)
 
 def kkk_did_nothing_wrong(discord, reddit, responses, message, channel):
-    if random.randrange(0, 1000) == 0:
+    n = random.randrange(0, 1000)
+    
+    if n == 0:
         response = "The KKK did nothing wrong! ({0})".format(message.author.nick)
+        responses.append(response)
+    elif n < 10:
+        response = "Close! Your number: {0}".format(n)
         responses.append(response)
 
 def nice_meme(discord, reddit, responses, message, channel):
@@ -140,7 +145,7 @@ def shit_automod(discord, reddit, responses, message, channel):
 #leave channel whitelist empty to disable
 
 command_rules = (
-(get_meme, "^!getmeme"),
+(get_meme, "^!getme(?:me|em)"),
 (get_porn, "^!getporn", ("general",)),
 (get_keem, "^!getkeem"),
 (get_dick, "^!getdick"),
@@ -153,7 +158,7 @@ general_rules = (
 (hello_faggot, "hello!"),
 (boi_spam, "boi"),
 (high_noon, "what(?: (?:time'?s|time is) it|(?:'?s| is) the time)\\?"),
-(kkk_did_nothing_wrong, '.'),
+(kkk_did_nothing_wrong, '.', (), ("general",)),
 (nice_meme, '.', (), ("m3m3z",)),
 (shit_automod, "shit automod")
 )
