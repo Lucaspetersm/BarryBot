@@ -57,31 +57,25 @@ async def on_message(message):
     for msg in responses:
         await client.send_message(message.channel, msg.format(message))
 
-# TBI Music Bot Code
+    if message.content.startswith("!Disconnect") and config.Voice_Client_On:
+          await voice.disconnect()
+          print("Disconnected")
 
-    #if message.content.startswith("!Voice"):
-       # global voice
-       # channel = client.get_channel("255124792909234176")
-       # voice = await client.join_voice_channel(channel)
+    if message.content.startswith("!Request") and config.Voice_Client_On:
+          searchforward = message.content
+          url = searchforward[9:]
+          def my_after():
+            coro = client.send_message(message.channel, 'Song is done!')
+            fut = asyncio.run_coroutine_threadsafe(coro, client.loop)
+            try:
+              fut.result()
+            except:
+               #an error happened sending the message
+              pass
+
+          player = await voice.create_ytdl_player(url, after=my_after)
+          player.start()      
           
-    #if message.content.startswith("!Stop"):
-       # player.stop()
-      
-    #if message.content.startswith("!Disconnect"):
-       # await voice.disconnect()
-       # print("Disconnected")
-      
-    #if message.content.startswith("!Request"):
-       # global player
-       # searchforward = message.content
-       # print(searchforward[9:])
-       # player = await voice.create_ytdl_player(searchforward[9:])
-       # msg = "{0} requested '{1}'".format(message.author,player.title)
-       # await client.send_message(message.channel, msg)
-       # player.start()
-       # print(player.duration)
-      #  time.sleep(player.duration)
-      #  player.stop()
                     
 @client.event
 async def on_ready():
@@ -89,8 +83,9 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-   # global voice
-   # channel = client.get_channel("255124792909234176")
-   # voice = await client.join_voice_channel(channel)
+    if config.Voice_Client_On:
+      channel = client.get_channel(id="255124792909234176")
+      voice = await client.join_voice_channel(channel)
+      global voice
 
 client.run(config.discord_key)
