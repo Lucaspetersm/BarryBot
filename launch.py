@@ -46,7 +46,7 @@ def launch(program=launch_program):
                                   "platform.python_version: '" + str(platform.python_version()) + "'\n" +
                                   "is_64bits: " + str(sys.maxsize > 2**32) + "\n\n" +
                                   "e.__class__.__name__: " + str(e.__class__.__name__) + "\n" +
-                                  "e.args: " + str(e.args) + "\n\n"                                      )
+                                  "e.args: " + str(e.args) + "\n\n")
 
                 for var in ("__builtins__", "ver", "reddit_pass", "discord_key"):
                     try:
