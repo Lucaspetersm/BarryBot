@@ -79,6 +79,7 @@ async def on_message(message):
                     
 @client.event
 async def on_ready():
+    global voice
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
@@ -86,6 +87,5 @@ async def on_ready():
     if config.Voice_Client_On:
       channel = client.get_channel(id="255124792909234176")
       voice = await client.join_voice_channel(channel)
-      global voice
 
 client.run(config.discord_key)
