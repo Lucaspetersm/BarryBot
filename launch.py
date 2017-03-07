@@ -2,6 +2,7 @@ import time, platform, sys
 from os.path import isfile
 
 launch_program = "barry.py"
+relaunch_delay = 10
 
 env = {}
 
@@ -66,7 +67,7 @@ def launch(program=launch_program):
                         else:
                             val_container = "'"
 
-                    report += val_container + val + val_container + '\n'
+                    report += "{0}{1}{0}\n".format(val_container, val)
 
                     if val_multiline:
                         report = '\n' + report + '\n'
@@ -80,3 +81,5 @@ def launch(program=launch_program):
 if __name__ in ("__main__", "__builtins__"):
     while True:
         launch()
+        if relaunch_delay > 0:
+            time.sleep(relaunch_delay)
