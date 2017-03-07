@@ -135,25 +135,31 @@ def shit_automod(discord, reddit, responses, message, channel):
     
     responses.extend(response)
 
+def whom_st_d_ve(discord, reddit, responses, message, channel):
+    response = "whomst'd've'lu'yaint'nt'ed'ies's'y'es'nt't're'ing'able'tic'ive'al'nt'ne'm'll'ble'al'ny'less'w'ck'k'ly'py'nd'idy'ety'st'ged'ful'ish'ng'mt'ous'path'let'phile'like'ious'ant'script'ance'iatric'ite'emia'ory'age'ian'phone'ism'arium'ac'fy'ology'ure'pnea'ency'opia'loger'plegia'sophic'ent'hood'otomy'ward'ectomy'algia'orium'tude'cule'scribe'ization'crat'ade'gonic'onym'dom'ship'ic'ical'ial'ize'dox'itis'uous'scope'cycle'osis'ible'ular'acity'etic'cide'ative'plegic'ware'ese'ocity'sion'phyte'trophy'oma'ary'tome'scopy'ily'sect'ern'ist'esque'some'logist'phobia'iasis'pathy'ostomy'ling'ment'opsy'ee'oid'gam'gamy'cracy'ate'ine'oholic'aholic'escence'wise'arian'est'ness'eer'sophy'ette"
+    
+    responses.append(response)
+
 #rule syntax: (function, regex search, channel blacklist, channel whitelist)
 #channel blacklist and whitelist should be tuples
 #leave channel whitelist empty to disable
 
 command_rules = (
-(get_meme, "^!getme(?:me|em)"),
-(get_porn, "^!getporn", ("general",)),
-(get_keem, "^!getkeem"),
-(get_dick, "^!getdick"),
-(get_furry_porn, "^!getfurryporn", ("general",))
+    (get_meme, "^!getme(?:me|em)"),
+    (get_porn, "^!getporn", ("general",)),
+    (get_keem, "^!getkeem"),
+    (get_dick, "^!getdick"),
+    (get_furry_porn, "^!getfurryporn", ("general",)),
 )
 
 general_rules = (
-(joy_spam, "😂"),
-(right_there, "right there"),
-(hello_faggot, "hello!"),
-(boi_spam, "boi"),
-(high_noon, "what(?: (?:time'?s|time is) it|(?:'?s| is) the time)\\?"),
-(kkk_did_nothing_wrong, '.'),
-(nice_meme, '.', (), ("m3m3z",)),
-(shit_automod, "shit automod")
+    (joy_spam, "😂"),
+    (right_there, "right there"),
+    (hello_faggot, "hello!"),
+    (boi_spam, "boi"),
+    (high_noon, "what(?: (?:time'?s|time is) it|(?:'?s| is) the time)\\?"),
+    (kkk_did_nothing_wrong, '.'),
+    (nice_meme, '.', (), ("m3m3z",)),
+    (shit_automod, "shit automod"),
+    (whom_st_d_ve, "whom"),
 )
