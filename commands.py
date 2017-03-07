@@ -4,10 +4,10 @@ import random
 nsfw_sub_list = []
 furry_sub_list = []
 
-with open("nsfw_sub_list.txt", 'r', encoding="utf-8") as f:
+with open("sub_list/nsfw_sub_list.txt", 'r', encoding="utf-8") as f:
     nsfw_sub_list = f.read().splitlines()
 
-with open("furry_sub_list.txt", 'r', encoding="utf-8") as f:
+with open("sub_list/furry_sub_list.txt", 'r', encoding="utf-8") as f:
     furry_sub_list = f.read().splitlines()
 
 # Main Definitions
@@ -121,13 +121,8 @@ def high_noon(discord, reddit, responses, message, channel):
     responses.append(response)
 
 def kkk_did_nothing_wrong(discord, reddit, responses, message, channel):
-    n = random.randrange(0, 1000)
-    
-    if n == 0:
+    if random.randrange(0, 1000) == 0:
         response = "The KKK did nothing wrong! ({0})".format(message.author.nick)
-        responses.append(response)
-    elif n < 10:
-        response = "Close! Your number: {0}".format(n)
         responses.append(response)
 
 def nice_meme(discord, reddit, responses, message, channel):
@@ -158,7 +153,7 @@ general_rules = (
 (hello_faggot, "hello!"),
 (boi_spam, "boi"),
 (high_noon, "what(?: (?:time'?s|time is) it|(?:'?s| is) the time)\\?"),
-(kkk_did_nothing_wrong, '.', (), ("general",)),
+(kkk_did_nothing_wrong, '.'),
 (nice_meme, '.', (), ("m3m3z",)),
 (shit_automod, "shit automod")
 )
