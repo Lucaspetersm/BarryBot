@@ -145,11 +145,11 @@ def whom_st_d_ve(discord, reddit, responses, message, channel):
 #leave channel whitelist empty to disable
 
 command_rules = (
-    (get_meme, "^!getme(?:me|em)"),
-    (get_porn, "^!getporn", ("general",)),
-    (get_keem, "^!getkeem"),
-    (get_dick, "^!getdick"),
-    (get_furry_porn, "^!getfurryporn", ("general",)),
+    (get_meme, "^! ?getme(?:me|em)"),
+    (get_porn, "^! ?getporn", ("general",)),
+    (get_keem, "^! ?getkeem"),
+    (get_dick, "^! ?getdick"),
+    (get_furry_porn, "^! ?getfurryporn", ("general",)),
 )
 
 general_rules = (
