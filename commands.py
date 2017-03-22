@@ -121,8 +121,13 @@ def high_noon(discord, reddit, responses, message, channel):
     responses.append(response)
 
 def kkk_did_nothing_wrong(discord, reddit, responses, message, channel):
-    if random.randrange(0, 1000) == 0:
+    n = random.randrange(0, 1000)
+    
+    if n == 0:
         response = "The KKK did nothing wrong! ({0})".format(message.author.mention())
+        responses.append(response)
+    elif n < 10:
+        response = "The KKK did n... jk not rly get rekt cunt"
         responses.append(response)
 
 def nice_meme(discord, reddit, responses, message, channel):
