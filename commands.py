@@ -145,6 +145,14 @@ def whom_st_d_ve(discord, reddit, responses, message, channel):
     
     responses.append(response)
 
+def fffff(discord, reddit, responses, message, channel):
+    response = 'f' if random.random() < .5 else 'F'
+    
+    if random.random() < .2:
+        response *= random.randrange(2,11)
+    
+    responses.append(response)
+
 #rule syntax: (function, regex search, channel blacklist, channel whitelist)
 #channel blacklist and whitelist should be tuples
 #leave channel whitelist empty to disable
@@ -167,4 +175,5 @@ general_rules = (
     (nice_meme, '.', (), ("m3m3z",)),
     (shit_automod, "shit automod"),
     (whom_st_d_ve, "whom"),
+    (fffff, "press f"),
 )
