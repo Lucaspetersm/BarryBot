@@ -168,7 +168,7 @@ def ive_never_bean_more_ashamed(discord, reddit, responses, message, channel):
 #channel blacklist and whitelist should be tuples
 #leave channel whitelist empty or missing to disable
 
-PUNCT_RE = "[!\"#\$%&'\(\)\*\+,\\\-\.\/:;<=>\?@\[\]\^_`{\|}~\s]"
+PUNCT_RE = "[!\"#\$%&'\\(\\)\*\\+,\\\\\\-\\.\\/:;<=>\\?@\\[\\]\\^_`{\\|}~\\s]"
 
 command_rules = (
     (get_meme, "^! ?getme(?:me|em)"),
