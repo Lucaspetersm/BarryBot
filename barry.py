@@ -1,5 +1,5 @@
 '''
-    Barry Bot 2.0dev6
+    Barry Bot 2.0dev7
     
     A pretty nutty Discord bot.
     
@@ -14,7 +14,7 @@ import discord, praw, youtube_dl
 import commands, config
 from discord import opus
 
-ver = "2.0dev5.1"
+ver = "2.0dev7"
 
 user_agent = platform.system().lower() + ":pw.yalnix.barry:" + ver + " by /u/Yalnix"
 
@@ -52,7 +52,13 @@ async def on_message(message):
     if message.author == client.user:
         return
     else:
-        responses = commands.on_message(client, reddit, message)
+        responses, delete = commands.on_message(client, reddit, message)
+    
+    if delete:
+        try:
+            await client.delete_message(message)
+        except Exception:
+            pass
     
     for msg in responses:
         await client.send_message(message.channel, msg.format(message))

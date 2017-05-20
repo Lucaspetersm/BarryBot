@@ -14,6 +14,7 @@ with open("sub_list/furry_sub_list.txt", 'r', encoding="utf-8") as f:
 
 def on_message(discord, reddit, message):
     responses = []
+    delete = False
     
     def good_channel(rule, channel):
         return (len(rule) < 3 or                           #  no blacklist or whitelist, or
@@ -35,8 +36,14 @@ def on_message(discord, reddit, message):
     for rule in general_rules:
         if good_channel(rule, channel) and re_evaluate(rule[1], body):
             rule[0](discord, reddit, responses, message, channel)
+            
+    for rule in deletion_rules:
+        if good_channel(rule, channel) and re_evaluate(rule[1], body):
+            rule[0](discord, reddit, responses, message, channel)
+            delete = True
+            break
     
-    return responses
+    return (responses, delete)
 
 def filter_links(submissions, min_score=0):
     #This will be part of a larger function/class which caches submissions soon.
@@ -153,9 +160,15 @@ def fffff(discord, reddit, responses, message, channel):
     
     responses.append(response)
 
+def ive_never_bean_more_ashamed(discord, reddit, responses, message, channel):
+    response = 'R' + 'E'*999
+    responses.append(response)
+
 #rule syntax: (function, regex search, channel blacklist, channel whitelist)
 #channel blacklist and whitelist should be tuples
-#leave channel whitelist empty to disable
+#leave channel whitelist empty or missing to disable
+
+PUNCT_RE = "[!\"#\$%&'\(\)\*\+,\\\-\.\/:;<=>\?@\[\]\^_`{\|}~\s]"
 
 command_rules = (
     (get_meme, "^! ?getme(?:me|em)"),
@@ -176,4 +189,11 @@ general_rules = (
     (shit_automod, "shit automod"),
     (whom_st_d_ve, "whom"),
     (fffff, "press f"),
+)
+
+#for deletion rules, the channel blacklist contains the names of all
+#channels for which the rule DOES NOT apply
+
+deletion_rules = (
+    (ive_never_bean_more_ashamed, "(?:[b8]{0}*)+(?:[e3]{0}*)+(?:[a4]{0}*)+(?:[n]{0}*)+".format(PUNCT_RE), ("spicy-facebook-memes",)),
 )
