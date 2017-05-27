@@ -1,5 +1,5 @@
 '''
-    Barry Bot 2.0dev7.1
+    Barry Bot 2.0dev7.2
     
     A pretty nutty Discord bot.
     
@@ -14,7 +14,7 @@ import discord, praw, youtube_dl
 import commands, config
 from discord import opus
 
-ver = "2.0dev7.1"
+ver = "2.0dev7.2"
 
 user_agent = platform.system().lower() + ":pw.yalnix.barry:" + ver + " by /u/Yalnix"
 

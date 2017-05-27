@@ -131,7 +131,7 @@ def kkk_did_nothing_wrong(discord, reddit, responses, message, channel):
     n = random.randrange(0, 1000)
     
     if n == 0:
-        response = "The KKK did nothing wrong! ({0})".format(message.author.mention())
+        response = "The KKK did nothing wrong! (<@{0}>)".format(message.author.id)
         responses.append(response)
     elif n < 10:
         response = "The KKK did n... jk not rly get rekt cunt"
