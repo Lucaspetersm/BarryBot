@@ -25,9 +25,9 @@ def import_feature_modules():
         mod_has_update_clients = hasattr(mod, "update_clients") and callable(mod.update_clients)
 
         if not mod_callable:
-            print("Callable event not found in {0}".format(m_name))
+            print("Callable event not found in {0}".format(mod_name))
         elif not mod_has_update_clients:
-            print("Callable update_clients not found in {0}".format(m_name))
+            print("Callable update_clients not found in {0}".format(mod_name))
         else:
             modules.append(mod)
 
