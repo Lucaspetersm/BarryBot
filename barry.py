@@ -1,97 +1,50 @@
 '''
-    Barry Bot 2.0dev7.2
+    Barry Bot 3.0dev0
     
     A pretty nutty Discord bot.
     
     Originally authored by Yalnix.
-    Contributors: unclepenguin, GarethPW.
+    Major contributions by GarethPW.
+    Other contributors: unclepenguin.
     
     Licensed under Mozilla Public License Version 2.0.
 '''
 
 import platform, random, string, time
 import discord, praw, youtube_dl
-import commands, config
-from discord import opus
+import config, constants, modules
 
-ver = "2.0dev7.2"
+ver = "3.0dev0"
 
 user_agent = platform.system().lower() + ":pw.yalnix.barry:" + ver + " by /u/Yalnix"
 
-OPUS_LIBS = ['libopus-0.x86.dll', 'libopus-0.x64.dll', 'libopus-0.dll', 'libopus.so.0', 'libopus.0.dylib']
+discord_client = discord.Client()
+praw_client = praw.Reddit(user_agent)
 
-def load_opus_lib(opus_libs=OPUS_LIBS):
-    if not opus.is_loaded():    
-        for opus_lib in opus_libs:
-            try:
-                opus.load_opus(opus_lib)
-            except OSError:
-                pass
-            else:
-                return
-        else:
-            raise RuntimeError('Could not load an opus lib. Tried %s' % (', '.join(opus_libs)))
+modules.update_clients(discord_client, praw_client)
+modules.import_feature_modules()
 
-#load_opus_lib()
-
-if discord.opus.is_loaded():
-  print("Loaded Opus")
-else:
-  print("Opus has not been loaded")
-
-client = discord.Client()
-general = discord.Client(id="228134125003866113") #General voice channel
-
-reddit = praw.Reddit(user_agent)
-reddit.login(config.reddit_user, config.reddit_pass, disable_warning=True)
-
-@client.event
-async def on_message(message):
-    responses = []
+async def on_event(wrapper_event, *args, **kwargs):
+    case_match = {
+        "on_message":         lambda: args[0].author,
+        "on_reaction_add":    lambda: args[1],
+        "on_reaction_remove": lambda: args[1],
+    }.get(wrapper_event, None) == client.user
     
-    if message.author == client.user:
+    if case_match:
         return
-    else:
-        responses, delete = commands.on_message(client, reddit, message)
     
-    if delete:
-        try:
-            await client.delete_message(message)
-        except Exception:
-            pass
+    actions = modules.call_event(wrapper_event, *args, **kwargs)
     
-    for msg in responses:
-        await client.send_message(message.channel, msg.format(message))
+    for a in actions:
+        await a() #probably won't work; let's find out
 
-    if message.content.startswith("!Disconnect") and config.Voice_Client_On:
-          await voice.disconnect()
-          print("Disconnected")
+for k,v in modules.discord_events.keys():
+    if v:
+        client.add_listener(
+            lambda *args, **kwargs: on_event(k, *args, **kwargs),
+            k
+        )
 
-    if message.content.startswith("!Request") and config.Voice_Client_On:
-          searchforward = message.content
-          url = searchforward[9:]
-          def my_after():
-            coro = client.send_message(message.channel, 'Song is done!')
-            fut = asyncio.run_coroutine_threadsafe(coro, client.loop)
-            try:
-              fut.result()
-            except:
-               #an error happened sending the message
-              pass
-
-          player = await voice.create_ytdl_player(url, after=my_after)
-          player.start()      
-          
-                    
-@client.event
-async def on_ready():
-    global voice
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
-    if config.Voice_Client_On:
-      channel = client.get_channel(id="255124792909234176")
-      voice = await client.join_voice_channel(channel)
-
-client.run(config.discord_key)
+discord_client.run(config.discord_key)
+praw_client.login(config.reddit_user, config.reddit_pass, disable_warning=True) #This really needs to be replaced with OAuth soon.

@@ -5,8 +5,15 @@ reddit_pass    = ""
 # Auth key used to log into Discord.
 discord_key    = ""
 
-#Switch Voice Features On/Off
-Voice_Client_On = True
+# Switch voice features on/off.
+voice_client   = True
+
+# Command/feature modules.
+
+module_names = (
+#    "default",
+    "dev_test",
+)
 
 # Do not change this value!
 config_version = 1

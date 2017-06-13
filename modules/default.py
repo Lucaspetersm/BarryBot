@@ -1,3 +1,5 @@
+#Not at all ported to 3.0 yet.
+
 import re #eeeeee
 import random
 
