@@ -1,4 +1,4 @@
-import re #eeeeee
+﻿import re #eeeeee
 import random
 
 nsfw_sub_list = []
@@ -128,7 +128,7 @@ def high_noon(discord, reddit, responses, message, channel):
     responses.append(response)
 
 def kkk_did_nothing_wrong(discord, reddit, responses, message, channel):
-    n = random.randrange(0, 1000)
+    n = random.randrange(0, 10000)
     
     if n == 0:
         response = "The KKK did nothing wrong! (<@{0}>)".format(message.author.id)
@@ -171,7 +171,7 @@ def ive_never_bean_more_ashamed(discord, reddit, responses, message, channel):
 PUNCT_RE = "[!\"#\$%&'\\(\\)\*\\+,\\\\\\-\\.\\/:;<=>\\?@\\[\\]\\^_`{\\|}~\\s]"
 
 command_rules = (
-    (get_meme, "^! ?getme(?:me|em)"),
+    (get_meme, "^! ?get(?:meme|mee+m|maymay)"),
     (get_porn, "^! ?getporn", ("general",)),
     (get_keem, "^! ?getkeem"),
     (get_dick, "^! ?getdick"),
