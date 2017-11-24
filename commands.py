@@ -172,10 +172,10 @@ PUNCT_RE = "[!\"#\$%&'\\(\\)\*\\+,\\\\\\-\\.\\/:;<=>\\?@\\[\\]\\^_`{\\|}~\\s]"
 
 command_rules = (
     (get_meme, "^! ?get(?:meme|mee+m|maymay)"),
-    (get_porn, "^! ?getporn", ("general",)),
+    (get_porn, "^! ?getporn", ("general", "voice-chat", "lan-party", "politics", "m3m3z", "d_and_d", "madlads_the_interviews")),
     (get_keem, "^! ?getkeem"),
     (get_dick, "^! ?getdick"),
-    (get_furry_porn, "^! ?getfurryporn", ("general",)),
+    (get_furry_porn, "^! ?getfurryporn", ("general", "voice-chat", "lan-party", "politics", "m3m3z", "d_and_d", "madlads_the_interviews")),
 )
 
 general_rules = (
