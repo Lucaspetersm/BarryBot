@@ -1,4 +1,4 @@
-﻿import re #eeeeee
+import re #eeeeee
 import random
 
 nsfw_sub_list = []
@@ -59,7 +59,7 @@ def filter_links(submissions, min_score=0):
 # Command Definitons
 
 def get_meme(discord, reddit, responses, message, channel):
-    submissions = filter_links(reddit.get_subreddit("dankmemes").get_hot(limit=100))
+    submissions = filter_links(reddit.subreddit("dankmemes").hot(limit=100))
     url = submissions[random.randrange(0, len(submissions))].url
     
     response = '''Initializing Dank MayMays
@@ -76,13 +76,13 @@ Commencing Meme: ''' + url
 
 def get_porn(discord, reddit, responses, message, channel):
     subreddit = random.choice(nsfw_sub_list)
-    submissions = filter_links(reddit.get_subreddit(subreddit).get_hot(limit=5))
+    submissions = filter_links(reddit.subreddit(subreddit).hot(limit=5))
     response = submissions[random.randrange(0, len(submissions))].url
     
     responses.append(response)
 
 def get_keem(discord, reddit, responses, message, channel):
-    submissions = filter_links(reddit.get_subreddit("KeemGnome").get_top_from_all(limit=100))
+    submissions = filter_links(reddit.subreddit("KeemGnome").top_from_all(limit=100))
     url = submissions[random.randrange(0, len(submissions))].url
     
     response = ("WHATS UP GUYS IT'S KILLLLLLLEEEEEEEEEERRRRRRRRR KEEEEEEEEEMMMMMMMMSSSSSSTTTTTAAARRRRRRRR " +
@@ -92,14 +92,14 @@ def get_keem(discord, reddit, responses, message, channel):
     responses.append(response)
 
 def get_dick(discord, reddit, responses, message, channel):
-    submissions = filter_links(reddit.get_subreddit("dickpics").get_hot(limit=100), min_score=3)
+    submissions = filter_links(reddit.subreddit("dickpics").hot(limit=100), min_score=3)
     response = submissions[random.randrange(0, len(submissions))].url
     
     responses.append(response)
 
 def get_furry_porn(discord, reddit, responses, message, channel):
     subreddit = random.choice(furry_sub_list)
-    submissions = filter_links(reddit.get_subreddit(subreddit).get_hot(limit=25))
+    submissions = filter_links(reddit.get_subreddit(subreddit).hot(limit=25))
     response = submissions[random.randrange(0, len(submissions))].url
     
     responses.append(response)
@@ -172,10 +172,10 @@ PUNCT_RE = "[!\"#\$%&'\\(\\)\*\\+,\\\\\\-\\.\\/:;<=>\\?@\\[\\]\\^_`{\\|}~\\s]"
 
 command_rules = (
     (get_meme, "^! ?get(?:meme|mee+m|maymay)"),
-    (get_porn, "^! ?getporn", ("general", "voice-chat", "lan-party", "politics", "m3m3z", "d_and_d", "madlads_the_interviews")),
+    (get_porn, "^! ?getporn", ("general",)),
     (get_keem, "^! ?getkeem"),
     (get_dick, "^! ?getdick"),
-    (get_furry_porn, "^! ?getfurryporn", ("general", "voice-chat", "lan-party", "politics", "m3m3z", "d_and_d", "madlads_the_interviews")),
+    (get_furry_porn, "^! ?getfurryporn", ("general",)),
 )
 
 general_rules = (

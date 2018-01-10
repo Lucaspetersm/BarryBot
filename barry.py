@@ -1,5 +1,5 @@
 '''
-    Barry Bot 2.0dev8.1
+    Barry Bot 2.0dev8
     
     A pretty nutty Discord bot.
     
@@ -14,36 +14,20 @@ import discord, praw, youtube_dl
 import commands, config
 from discord import opus
 
-ver = "2.0dev8.1"
+ver = "2.1dev0"
 
 user_agent = platform.system().lower() + ":pw.yalnix.barry:" + ver + " by /u/Yalnix"
-
-OPUS_LIBS = ['libopus-0.x86.dll', 'libopus-0.x64.dll', 'libopus-0.dll', 'libopus.so.0', 'libopus.0.dylib']
-
-def load_opus_lib(opus_libs=OPUS_LIBS):
-    if not opus.is_loaded():    
-        for opus_lib in opus_libs:
-            try:
-                opus.load_opus(opus_lib)
-            except OSError:
-                pass
-            else:
-                return
-        else:
-            raise RuntimeError('Could not load an opus lib. Tried %s' % (', '.join(opus_libs)))
-
-#load_opus_lib()
-
-if discord.opus.is_loaded():
-  print("Loaded Opus")
-else:
-  print("Opus has not been loaded")
 
 client = discord.Client()
 general = discord.Client(id="228134125003866113") #General voice channel
 
-reddit = praw.Reddit(user_agent)
-reddit.login(config.reddit_user, config.reddit_pass, disable_warning=True)
+reddit = praw.Reddit(client_id='Q_LZxiXN7UVYyg',
+                     client_secret='29Ce06E8FVjhVLeD-8u04MoSPK4',
+                     password=config.reddit_pass,
+                     user_agent=user_agent,
+                     username=config.reddit_user) #Client_ID and Secret found on Pull_Bot Reddit Dev
+
+print(reddit.user.me()) #Test to see if Login successful
 
 @client.event
 async def on_message(message):
@@ -62,27 +46,7 @@ async def on_message(message):
     
     for msg in responses:
         await client.send_message(message.channel, msg.format(message))
-
-    if message.content.startswith("!Disconnect") and config.Voice_Client_On:
-          await voice.disconnect()
-          print("Disconnected")
-
-    if message.content.startswith("!Request") and config.Voice_Client_On:
-          searchforward = message.content
-          url = searchforward[9:]
-          def my_after():
-            coro = client.send_message(message.channel, 'Song is done!')
-            fut = asyncio.run_coroutine_threadsafe(coro, client.loop)
-            try:
-              fut.result()
-            except:
-               #an error happened sending the message
-              pass
-
-          player = await voice.create_ytdl_player(url, after=my_after)
-          player.start()      
-          
-                    
+                  
 @client.event
 async def on_ready():
     global voice
@@ -90,8 +54,5 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    if config.Voice_Client_On:
-      channel = client.get_channel(id="255124792909234176")
-      voice = await client.join_voice_channel(channel)
 
 client.run(config.discord_key)
