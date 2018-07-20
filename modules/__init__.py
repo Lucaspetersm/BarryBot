@@ -1,5 +1,6 @@
 import importlib
-from .. import config, constants
+import config
+from barry import constants
 
 modules = []
 
@@ -14,7 +15,7 @@ def update_clients(discord_client, praw_client):
 
 def import_feature_modules():
   for mod_name in config.module_names:
-    print("Importing {0}".format(mod_name))
+    print("Importing {0}... ".format(mod_name), end='')
     
     mod = importlib.import_module(".{}".format(mod_name), __name__)
     mod_callable = False
@@ -30,11 +31,12 @@ def import_feature_modules():
     )
 
     if not mod_callable:
-      print("Callable event not found in {0}".format(mod_name))
+      print("\nCallable event not found in {0}".format(mod_name))
     elif not mod_has_update_clients:
-      print("Callable update_clients not found in {0}".format(mod_name))
+      print("\nCallable update_clients not found in {0}".format(mod_name))
     else:
       modules.append(mod)
+      print("Done!")
 
 async def call_event(wrapper_event, *args, **kwargs):
   for mod_func in discord_events[wrapper_event]:

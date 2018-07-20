@@ -12,4 +12,4 @@
   ಠ_ಠ
 '''
 
-import barry
+from barry import barry

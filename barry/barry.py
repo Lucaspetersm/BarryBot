@@ -1,19 +1,20 @@
 '''
-  Barry Bot 3.0dev0
-  
+  Barry Bot 3.0dev1
+
   A pretty nutty Discord bot.
-  
+
   Originally authored by Yalnix.
   Major contributions by GarethPW.
-  
+
   Licensed under Mozilla Public License Version 2.0.
 '''
 
 import asyncio, platform, random, string, time
 import discord, praw
-from . import config, constants, modules
+import config, modules
+from . import constants
 
-ver = "3.0dev0"
+ver = "3.0dev1"
 
 user_agent = (
   platform.system().lower() +
@@ -51,7 +52,7 @@ async def on_event(wrapper_event, *args, **kwargs):
     "on_reaction_add": (lambda: args[1], lambda: kwargs["user"]),
     "on_reaction_remove": (lambda: args[1], lambda: kwargs["user"]),
   }.get(wrapper_event, None)
-  
+
   if case_match:
     for f in case_match: # check subject of event is not Barry
       try:
@@ -62,9 +63,9 @@ async def on_event(wrapper_event, *args, **kwargs):
         break
       else: # user is Barry
         return
-  
+
   actions = modules.call_event(wrapper_event, *args, **kwargs)
-  
+
   async for a in actions:
     await a
 

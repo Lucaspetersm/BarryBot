@@ -14,8 +14,7 @@ discord_key = ""
 # Command/feature modules.
 
 module_names = (
-#  "default",
-  "dev_test",
+  "default",
 )
 
 
