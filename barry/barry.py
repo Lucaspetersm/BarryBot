@@ -32,6 +32,19 @@ praw_client = praw.Reddit(user_agent=user_agent,
 modules.import_feature_modules()
 modules.update_clients(discord_client, praw_client)
 
+
+class EventLink:
+
+  def __init__(self, event):
+    self.__name__, self.event = event, event
+
+  @asyncio.coroutine # decorator differs slightly from builtin async
+  def __call__(self, *args, **kwargs):
+    yield from on_event(self.event, *args, **kwargs)
+
+  _is_coroutine = __call__._is_coroutine # (reason for decorator)
+
+
 async def on_event(wrapper_event, *args, **kwargs):
   case_match = {
     "on_message": (lambda: args[0].author, lambda: kwargs["message"].author),
@@ -52,15 +65,11 @@ async def on_event(wrapper_event, *args, **kwargs):
   
   actions = modules.call_event(wrapper_event, *args, **kwargs)
   
-  for a in actions:
+  async for a in actions:
     await a
 
-for k,v in modules.discord_events.items():
-  if v: # if there are any event responses to call
-    discord_client.add_listener(
-      asyncio.coroutine(
-        lambda *args, **kwargs: on_event(k, *args, **kwargs)
-      ), k
-    )
+for event,f in modules.discord_events.items():
+  if f: # if there are any event responses to call
+    discord_client.event(EventLink(event))
 
 discord_client.run(config.discord_key)
