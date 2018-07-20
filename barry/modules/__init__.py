@@ -1,41 +1,44 @@
 import importlib
 from .. import config, constants
 
+modules = []
+
 discord_events = dict.fromkeys(constants.EVENTS, tuple())
 
 def update_clients(discord_client, praw_client):
-    global discord, reddit
-    discord, reddit = discord_client, praw_client
-    
-    for mod in modules:
-        mod.update_clients(discord, reddit)
+  global discord, reddit
+  discord, reddit = discord_client, praw_client
+  
+  for mod in modules:
+    mod.update_clients(discord, reddit)
 
 def import_feature_modules():
-    for mod_name in config.modules:
-        print("Importing {0}")
-        
-        mod = importlib.import_module(mod_name)
-        mod_callable = False
-        
-        for event in discord_events:
-            if hasattr(mod, event) and callable(getattr(mod, event)):
-                discord_events[event] += (event,)
-                mod_callable = True
-        
-        mod_has_update_clients = hasattr(mod, "update_clients") and callable(mod.update_clients)
-
-        if not mod_callable:
-            print("Callable event not found in {0}".format(mod_name))
-        elif not mod_has_update_clients:
-            print("Callable update_clients not found in {0}".format(mod_name))
-        else:
-            modules.append(mod)
-
-def call_event(wrapper_event, *args, **kwargs):
-    for mod in discord_events[wrapper_event]:
-        actions = mod.getattr(wrapper_event)(*args, **kwargs)
+  for mod_name in config.module_names:
+    print("Importing {0}".format(mod_name))
     
-    return actions
+    mod = importlib.import_module(".{}".format(mod_name), __name__)
+    mod_callable = False
+    
+    for event in discord_events:
+      if hasattr(mod, event) and callable(getattr(mod, event)):
+        discord_events[event] += (getattr(mod, event),)
+        mod_callable = True
+    
+    mod_has_update_clients = (
+      hasattr(mod, "update_clients") and
+      callable(mod.update_clients)
+    )
+
+    if not mod_callable:
+      print("Callable event not found in {0}".format(mod_name))
+    elif not mod_has_update_clients:
+      print("Callable update_clients not found in {0}".format(mod_name))
+    else:
+      modules.append(mod)
+
+async def call_event(wrapper_event, *args, **kwargs):
+  for mod_func in discord_events[wrapper_event]:
+    yield mod_func(*args, **kwargs)
 
 # Discord events:
 #

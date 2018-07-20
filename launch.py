@@ -1,7 +1,9 @@
+#!/usr/bin/env python3
+
 import time, platform, sys
 from os.path import isfile
 
-launch_program = "barry.py"
+launch_program = "_run.py"
 relaunch_delay = 10
 
 env = {}
@@ -43,11 +45,13 @@ def launch(program=launch_program):
                 else:
                     report_file.write("ver: undefined\n\n")
 
-                report_file.write("platform.platform: '" + str(platform.platform()) + "'\n" +
-                                  "platform.python_version: '" + str(platform.python_version()) + "'\n" +
-                                  "is_64bits: " + str(sys.maxsize > 2**32) + "\n\n" +
-                                  "e.__class__.__name__: " + str(e.__class__.__name__) + "\n" +
-                                  "e.args: " + str(e.args) + "\n\n")
+                report_file.write(
+                    "platform.platform: '{}'\n".format(platform.platform()) +
+                    "platform.python_version: '{}'\n".format(platform.python_version()) + 
+                    "is_64bits: {}\n\n".format(sys.maxsize > 2**32) +
+                    "e.__class__.__name__: {}\n".format(e.__class__.__name__) +
+                    "e.args: {}\n\n".format(e.args)
+                )
 
                 for var in ("__builtins__", "ver", "reddit_pass", "discord_key"):
                     try:
