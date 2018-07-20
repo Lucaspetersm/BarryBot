@@ -1,5 +1,5 @@
 '''
-  Barry Bot 3.0dev1
+  Barry Bot 3.0dev1.1
 
   A pretty nutty Discord bot.
 
@@ -14,7 +14,7 @@ import discord, praw
 import config, modules
 from . import constants
 
-ver = "3.0dev1"
+ver = "3.0dev1.1"
 
 user_agent = (
   platform.system().lower() +

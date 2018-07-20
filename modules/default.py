@@ -186,7 +186,7 @@ def ive_never_bean_more_ashamed(responses, message, channel):
 PUNCT_RE = "[!\"#\$%&'\\(\\)\*\\+,\\\\\\-\\.\\/:;<=>\\?@\\[\\]\\^_`{\\|}~\\s]"
 
 command_rules = (
-  (get_meme, "^! ?getme(?:me|em)"),
+  (get_meme, "^! ?getme(?:me|e+m)"),
   (get_porn, "^! ?getporn", ("general",)),
   (get_keem, "^! ?getkeem"),
   (get_dick, "^! ?getdick"),
