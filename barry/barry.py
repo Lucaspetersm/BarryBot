@@ -1,5 +1,5 @@
 '''
-  Barry Bot 3.0dev1.1
+  Barry Bot 3.0dev2
 
   A pretty nutty Discord bot.
 
@@ -9,22 +9,13 @@
   Licensed under Mozilla Public License Version 2.0.
 '''
 
-import asyncio, platform, random, string, time
+import asyncio, random, string, time
 import discord, praw
 import config, modules
 from . import constants
 
-ver = "3.0dev1.1"
-
-user_agent = (
-  platform.system().lower() +
-  ":pw.yalnix.barry:" +
-  ver +
-  " by /u/Yalnix"
-)
-
 discord_client = discord.Client()
-praw_client = praw.Reddit(user_agent=user_agent,
+praw_client = praw.Reddit(user_agent=constants.USER_AGENT,
                           client_id=config.reddit_client_id,
                           client_secret=config.reddit_client_secret,
                           username=config.reddit_user,
@@ -66,7 +57,7 @@ async def on_event(wrapper_event, *args, **kwargs):
 
   actions = modules.call_event(wrapper_event, *args, **kwargs)
 
-  async for a in actions:
+  for a in actions:
     await a
 
 for event,f in modules.discord_events.items():

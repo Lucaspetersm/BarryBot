@@ -1,3 +1,14 @@
+from platform import system
+
+VER = "3.0dev2"
+
+USER_AGENT = (
+  system().lower() +
+  ":pw.yalnix.barry:" +
+  VER +
+  " by /u/Yalnix"
+)
+
 EVENTS = (
     "on_ready",
     "on_resumed",

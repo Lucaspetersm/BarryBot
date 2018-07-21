@@ -38,7 +38,7 @@ def import_feature_modules():
       modules.append(mod)
       print("Done!")
 
-async def call_event(wrapper_event, *args, **kwargs):
+def call_event(wrapper_event, *args, **kwargs):
   for mod_func in discord_events[wrapper_event]:
     yield mod_func(*args, **kwargs)
 
