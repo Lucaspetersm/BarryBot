@@ -1,5 +1,5 @@
 '''
-  Barry Bot 3.0dev2
+  Barry Bot 3.0dev2.1
 
   A pretty nutty Discord bot.
 

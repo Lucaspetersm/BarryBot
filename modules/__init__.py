@@ -1,4 +1,4 @@
-import importlib
+import asyncio, importlib
 import config
 from barry import constants
 
@@ -21,9 +21,12 @@ def import_feature_modules():
     mod_callable = False
     
     for event in discord_events:
-      if hasattr(mod, event) and callable(getattr(mod, event)):
-        discord_events[event] += (getattr(mod, event),)
-        mod_callable = True
+      if hasattr(mod, event):
+        attr = getattr(mod, event)
+
+        if asyncio.iscoroutinefunction(attr):
+          discord_events[event] += (attr,)
+          mod_callable = True
     
     mod_has_update_clients = (
       hasattr(mod, "update_clients") and
@@ -31,9 +34,9 @@ def import_feature_modules():
     )
 
     if not mod_callable:
-      print("\nCallable event not found in {0}".format(mod_name))
+      print("\nEvent coroutine not found in {}".format(mod_name))
     elif not mod_has_update_clients:
-      print("\nCallable update_clients not found in {0}".format(mod_name))
+      print("\nCallable update_clients not found in {}".format(mod_name))
     else:
       modules.append(mod)
       print("Done!")
