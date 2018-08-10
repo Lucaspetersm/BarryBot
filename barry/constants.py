@@ -1,6 +1,6 @@
 from platform import system
 
-VER = "3.0dev2.1"
+VER = "3.0dev2.2"
 
 USER_AGENT = (
   system().lower() +

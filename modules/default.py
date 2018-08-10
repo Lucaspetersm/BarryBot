@@ -13,7 +13,7 @@ furry_sub_list = []
 with open(os.path.join(SUB_LIST_PATH, "nsfw_sub_list.txt"), 'r', encoding="utf-8") as f:
   nsfw_sub_list = f.read().splitlines()
 
-with open(os.path.join(SUB_LIST_PATH, "nsfw_sub_list.txt"), 'r', encoding="utf-8") as f:
+with open(os.path.join(SUB_LIST_PATH, "furry_sub_list.txt"), 'r', encoding="utf-8") as f:
   furry_sub_list = f.read().splitlines()
 
 # Main Definitions
